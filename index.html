@@ -1,0 +1,287 @@
+<!-- NexoPlay FINAL - Checkout Wallet + Ventas + Entrega de cuentas. No modifica la lógica de wallet_spend_v1. -->
+<!DOCTYPE html>
+
+<html lang="es">
+<head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/><meta content="NexoPlay — entretenimiento digital, plataformas, planes, Wallet y soporte." name="description"/><meta content="#eef5ff" name="theme-color"/><title>NexoPlay — Entretenimiento digital</title><link href="css/legacy.css" rel="stylesheet"/><link href="css/nexoplay-v2.css" rel="stylesheet"/><link href="css/nexoplay-v3-fixes.css" rel="stylesheet"/><link href="css/nexoplay-v4-fixes.css" rel="stylesheet"/><link href="css/nexoplay-v5-fixes.css" rel="stylesheet"/><link href="css/nexoplay-v6-fixes.css" rel="stylesheet"/><link href="css/nexoplay-v8-fixes.css" rel="stylesheet"/><link href="css/nexoplay-v12-fixes.css" rel="stylesheet"/><link href="favicon.svg" rel="icon" type="image/svg+xml"/><link href="manifest.webmanifest" rel="manifest"/><script defer="True" src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script defer="True" src="js/legacy-runtime.js"></script><script defer="True" src="js/nexoplay-v2.js"></script><script defer="True" src="js/nexoplay-v5.js"></script><script defer="True" src="js/nexoplay-v6.js"></script><script defer="True" src="js/nexoplay-v8.js"></script><link rel="stylesheet" href="css/nexoplay-v13-nexo-notifications.css"/>
+<link rel="stylesheet" href="css/nexoplay-v15-nexo.css"/><link rel="stylesheet" href="css/nexoplay-v17-final.css"/><script defer="True" src="js/nexo-config.js"></script><script defer="True" src="js/nexoplay-v13.js"></script>
+<script defer="True" src="js/nexoplay-v15.js"></script></head>
+<body>
+<header class="nav">
+<a class="logo" href="#">Nexo<span>Play</span><small>DIGITAL</small></a>
+<nav class="nav-links"><a href="#catalogo">Catálogo</a><a href="#combos">🔥 Combos</a><a href="#" onclick="openTutorial();return false">Tutorial</a><a href="#info">Información</a><a href="#resenas">Reseñas</a><a href="#" onclick="openFavorites();return false">❤️ Favoritos</a><a href="#" onclick="openOrders();return false">🛍️ Mis Compras</a><a href="#" onclick="openRanks();return false">🏆 Rangos</a><a href="pages/peliculas.html">🎬 Películas</a><a href="pages/deportes.html">⚽ Deportes</a><a href="pages/ofertas.html">🔥 Ofertas</a><a href="#nexo-inteligente" onclick="openNexoAI();return false">🤖 Nexo IA</a></nav>
+<div class="menu-wrap"><button aria-label="Abrir menú" class="menu-btn" onclick="toggleSideMenu(event)">☰</button><div class="side-menu" id="sideMenu"><div class="menu-user" id="menuUser"><strong>👤 Invitado</strong><span>Inicia sesión para usar tu perfil.</span></div><button onclick="openProfile();closeSideMenu()">👤 Perfil</button><button onclick="openFavorites();closeSideMenu()">❤️ Favoritos</button><button id="distributorMenuBtn" onclick="openDistributorPanel();closeSideMenu()" style="display:none">📈 Panel de ventas</button><button onclick="openOrders();closeSideMenu()">🛍️ Mis Compras</button><button onclick="openWallet();closeSideMenu()">👛 Wallet</button><button onclick="openSupport();closeSideMenu()">🆘 Centro de soporte</button><button onclick="openRanks();closeSideMenu()">🏆 Mis Rangos</button><button onclick="openNexoAI();closeSideMenu()">🤖 Nexo Inteligente</button><button id="adminMenuBtn" onclick="openAdminPanel();closeSideMenu()" style="display:none">⚙️ Panel administrador</button></div></div>
+<button class="cart-btn" onclick="toggleCart()">🛒 Carrito <span class="badge-count" id="cartCount">0</span></button>
+</header>
+<section class="hero"><div class="hero-shell"><div class="hero-copy"><div class="eyebrow">NEXOPLAY · ENTRETENIMIENTO DIGITAL</div><h1>Tu entretenimiento, <span>sin complicarte.</span></h1><p>Descubre plataformas, planes, ofertas y herramientas en una experiencia moderna, rápida y pensada para cualquier pantalla.</p><div class="hero-actions"><a class="hero-cta primary-cta" href="#catalogo">Explorar catálogo</a></div><div class="search-wrap hero-search"><span aria-hidden="true" class="search-icon">⌕</span><input aria-label="Buscar en el catálogo" autocomplete="off" class="search" id="search" oninput="filterProducts()" placeholder="Busca Netflix, Spotify, Canva, un plan..."/></div></div><div class="platform-stage"><div class="platform-track"><div class="platform-card"><img alt="Netflix" decoding="async" loading="lazy" src="images/netflix.jpg"/><div class="platform-card-copy"><span>STREAMING</span><strong>Netflix</strong></div></div><div class="platform-card"><img alt="Disney+" decoding="async" loading="lazy" src="images/disney.jpg"/><div class="platform-card-copy"><span>STREAMING</span><strong>Disney+</strong></div></div><div class="platform-card"><img alt="Prime Video" decoding="async" loading="lazy" src="images/primevideo.jpg"/><div class="platform-card-copy"><span>STREAMING</span><strong>Prime Video</strong></div></div><div class="platform-card"><img alt="Max" decoding="async" loading="lazy" src="images/hbomax.jpg"/><div class="platform-card-copy"><span>STREAMING</span><strong>Max</strong></div></div><div class="platform-card"><img alt="Paramount+" decoding="async" loading="lazy" src="images/paramount.jpg"/><div class="platform-card-copy"><span>STREAMING</span><strong>Paramount+</strong></div></div><div class="platform-card"><img alt="Crunchyroll" decoding="async" loading="lazy" src="images/crunchyroll.jpg"/><div class="platform-card-copy"><span>ANIME</span><strong>Crunchyroll</strong></div></div><div class="platform-card"><img alt="Spotify" decoding="async" loading="lazy" src="images/spotify.jpg"/><div class="platform-card-copy"><span>MÚSICA</span><strong>Spotify</strong></div></div><div class="platform-card"><img alt="Canva" decoding="async" loading="lazy" src="images/canva.jpg"/><div class="platform-card-copy"><span>DISEÑO</span><strong>Canva</strong></div></div><div class="platform-card"><img alt="Netflix" decoding="async" loading="lazy" src="images/netflix.jpg"/><div class="platform-card-copy"><span>STREAMING</span><strong>Netflix</strong></div></div><div class="platform-card"><img alt="Disney+" decoding="async" loading="lazy" src="images/disney.jpg"/><div class="platform-card-copy"><span>STREAMING</span><strong>Disney+</strong></div></div><div class="platform-card"><img alt="Prime Video" decoding="async" loading="lazy" src="images/primevideo.jpg"/><div class="platform-card-copy"><span>STREAMING</span><strong>Prime Video</strong></div></div><div class="platform-card"><img alt="Max" decoding="async" loading="lazy" src="images/hbomax.jpg"/><div class="platform-card-copy"><span>STREAMING</span><strong>Max</strong></div></div><div class="platform-card"><img alt="Paramount+" decoding="async" loading="lazy" src="images/paramount.jpg"/><div class="platform-card-copy"><span>STREAMING</span><strong>Paramount+</strong></div></div><div class="platform-card"><img alt="Crunchyroll" decoding="async" loading="lazy" src="images/crunchyroll.jpg"/><div class="platform-card-copy"><span>ANIME</span><strong>Crunchyroll</strong></div></div><div class="platform-card"><img alt="Spotify" decoding="async" loading="lazy" src="images/spotify.jpg"/><div class="platform-card-copy"><span>MÚSICA</span><strong>Spotify</strong></div></div><div class="platform-card"><img alt="Canva" decoding="async" loading="lazy" src="images/canva.jpg"/><div class="platform-card-copy"><span>DISEÑO</span><strong>Canva</strong></div></div></div></div></div><div class="hero-trust"><span>💜 Atención personalizada</span><span>🔒 Pagos seguros</span><span>⚡ Entrega ágil</span><span>🛟 Soporte posventa</span></div></section>
+<section class="section" id="catalogo">
+<div class="section-title"><div><div class="eyebrow">CATÁLOGO DIGITAL</div><h2>Elige tu plataforma favorita</h2></div><p>Abre una tarjeta para comparar modalidades, precio, stock y beneficios.</p></div>
+<div class="category-explorer">
+<div class="category-explorer-head"><div><div class="eyebrow">EXPLORA POR CATEGORÍA</div><h3>Encuentra justo lo que buscas</h3></div><p id="categoryHint">Todo el catálogo en un solo lugar</p></div>
+<div class="category-chips" id="categoryChips"></div>
+</div>
+<div class="catalog-tools">
+<select aria-label="Filtrar por categoría" id="categoryFilter" onchange="applyCatalogTools()" style="display:none"><option value="all">Todas las categorías</option><option value="streaming">Streaming</option><option value="music">Música</option><option value="anime">Anime</option><option value="design">Diseño</option><option value="gaming">Gaming</option><option value="ai">IA</option><option value="apps">Apps</option><option value="education">Educación</option><option value="software">Software</option><option value="utilities">Utilidades</option><option value="offers">Ofertas</option><option value="new">Nuevos</option></select>
+<select aria-label="Ordenar catálogo" id="sortFilter" onchange="applyCatalogTools()"><option value="default">Orden recomendado</option><option value="priceAsc">Precio: menor a mayor</option><option value="priceDesc">Precio: mayor a menor</option><option value="name">Nombre A-Z</option><option value="stock">Mayor stock</option></select>
+<button id="favOnlyBtn" onclick="toggleFavOnly()">♡ Solo favoritos</button><button onclick="clearCatalogTools()">↺ Limpiar</button>
+</div>
+<div class="grid" id="grid"></div><div class="empty" id="empty">No encontramos resultados.</div>
+</section>
+<section class="section recent-section" id="favoritos">
+<div class="section-title"><div><div class="eyebrow">GUARDADOS</div><h2>❤️ Tus favoritos</h2></div><p>Guarda tus plataformas preferidas para encontrarlas rápido.</p></div>
+<div class="mini-grid" id="favoritesGrid"></div>
+</section>
+<section class="section combo-section" id="combos">
+<div class="combo-hero"><div class="combo-banner"><div class="eyebrow">NEXOPLAY COMBOS</div><h2>Más entretenimiento por menos.</h2><p>Combos rápidos para combinar servicios del catálogo. El sistema revisa el stock de cada plan antes de reservarlo.</p><span class="hero-badge">🔥 Stock sincronizado</span></div>
+<div class="combo-side"><div class="eyebrow">IDEA RÁPIDA</div><h3 style="margin:7px 0">Compra inteligente</h3><p class="info-text" style="margin:0">Puedes añadir un combo al carrito y seguir agregando productos individuales. Si una reserva falla, el sistema intenta devolver el stock reservado.</p></div></div>
+<div class="combo-grid" id="comboGrid"></div>
+</section>
+<section class="section" id="info" style="padding-top:0">
+<div class="info-panel">
+<div class="eyebrow">TRANSPARENCIA</div><h2 style="margin:6px 0 8px">Tu tienda, tus reglas</h2>
+<p class="info-text" style="margin:0">Queremos que sepas qué estás comprando antes de pagar. Revisa siempre la plataforma, modalidad, duración, precio y stock del plan seleccionado.</p>
+<div class="rules-grid">
+<div class="rule"><strong>🛒 Antes de comprar</strong><p>Revisa el nombre del plan, su descripción, precio y stock disponible antes de agregarlo al carrito.</p></div>
+<div class="rule"><strong>💜 Pago</strong><p>Elige Yape para pagar por WhatsApp o Wallet si tienes saldo suficiente. Conserva tu comprobante cuando uses un pago externo.</p></div>
+<div class="rule"><strong>📦 Entrega</strong><p>La entrega se procesa después de verificar el pedido y el pago. Los datos o instrucciones se envían por el canal acordado.</p></div>
+<div class="rule"><strong>🛡️ Soporte y garantía</strong><p>Conserva tu código de pedido. Si surge un inconveniente dentro de las condiciones de garantía de tu compra, podrás solicitar revisión y soporte.</p></div>
+<div class="rule"><strong>🎟️ Cupones</strong><p>Aplica tu código antes de pagar para ver el d</p></div>
+</div>
+</div>
+</section>
+<section class="section recent-section" id="pedidos">
+<div class="section-title"><div><div class="eyebrow">SEGUIMIENTO</div><h2>📋 Mis pedidos</h2></div><p>Los pedidos realizados desde este navegador quedan guardados aquí.</p></div>
+<div class="order-history" id="ordersContainer"></div>
+</section>
+<section class="section reviews-section" id="resenas">
+<div class="reviews-intro"><div class="eyebrow">OPINIONES DE CLIENTES</div><h2>⭐ Tu opinión nos importa</h2><p>Califica tu experiencia del 1 al 5 y deja un comentario para ayudar a otros clientes a comprar con mayor confianza.</p></div>
+<div class="review-layout">
+<form class="review-form" onsubmit="submitReview(event)">
+<h3>Deja tu reseña</h3>
+<label class="review-label" for="reviewName">Tu nombre</label><input class="review-input" id="reviewName" maxlength="40" placeholder="Ej. María" required="" type="text"/>
+<label class="review-label">Tu puntuación</label>
+<div class="star-picker"><input id="star5" name="rating" required="" type="radio" value="5"/><label for="star5">★</label><input id="star4" name="rating" type="radio" value="4"/><label for="star4">★</label><input id="star3" name="rating" type="radio" value="3"/><label for="star3">★</label><input id="star2" name="rating" type="radio" value="2"/><label for="star2">★</label><input id="star1" name="rating" type="radio" value="1"/><label for="star1">★</label></div>
+<label class="review-label" for="reviewText">Tu comentario</label><textarea class="review-textarea" id="reviewText" maxlength="300" placeholder="Cuéntanos cómo fue tu experiencia..." required=""></textarea>
+<button class="review-submit" type="submit">Publicar reseña</button>
+</form>
+<div class="reviews-list"><h3>Lo que dicen nuestros clientes</h3><div class="review-summary" id="reviewSummary"></div><div id="reviewsContainer"></div></div>
+</div>
+</section>
+<footer><div class="footer-links"><a href="#catalogo">Catálogo</a><a href="#combos">🔥 Combos</a><a href="#info">Información</a><a href="#resenas">Reseñas</a><a href="#" onclick="openFavorites();return false">❤️ Favoritos</a><a href="#" onclick="openOrders();return false">🛍️ Mis Compras</a></div>© 2026 NexoPlay Digital — Catálogo digital</footer>
+<div class="modal-bg" id="modalBg" onclick="outsideClose(event)"><div class="modal"><div class="modal-head"><strong id="modalTitle">Plataforma</strong><button class="close" onclick="closeModal()">×</button></div><div class="modal-body"><div class="panel"><h3>Elige tu plan</h3><p class="info-text">Cada opción tiene su propio precio, stock y descripción.</p><div id="plans"></div></div><div class="panel"><h3>Información del plan</h3><div class="info-text" id="modalDescription"></div><ul class="benefits" id="modalBenefits"></ul></div></div><div class="modal-actions"><button class="secondary" onclick="closeModal()">Cerrar</button><button class="primary" id="addBtn" onclick="addSelectedToCart()">Agregar al carrito</button></div></div></div>
+<div class="tutorial-bg" id="tutorialBg" onclick="tutorialOutside(event)"><div class="tutorial-modal"><div class="tutorial-modal-head"><h2>📚 Guía NexoPlay</h2><button class="close" onclick="closeTutorial()">×</button></div><div class="tutorial-modal-body"><p class="info-text" style="margin-top:0">Compra de forma rápida y revisa todo antes de confirmar.</p><div class="tutorial-grid"><div class="tutorial-card"><div class="step-number">01</div><h3>Explora por categoría</h3><p>Usa los botones de Streaming, Gaming, IA, Música, Apps, Diseño, Educación, Software, Utilidades, Ofertas y Nuevos para ver solo lo que te interesa.</p></div><div class="tutorial-card"><div class="step-number">02</div><h3>Compara la plantilla</h3><p>Abre una tarjeta para revisar modalidad, duración, precio, stock, beneficios y las condiciones del producto.</p></div><div class="tutorial-card"><div class="step-number">03</div><h3>Carrito + datos extra</h3><p>Añade tus productos y, si la entrega requiere información adicional, completa Nombre de perfil, ID / Usuario y Datos extra.</p></div><div class="tutorial-card"><div class="step-number">04</div><h3>Yape, Plin o Wallet</h3><p>Selecciona el método disponible. Con Yape o Plin podrás adjuntar tu comprobante; con Wallet se valida tu saldo.</p></div><div class="tutorial-card"><div class="step-number">05</div><h3>Mis pedidos</h3><p>Consulta tus pedidos y, cuando una cuenta haya sido entregada, abre sus datos de acceso desde el pedido correspondiente.</p></div><div class="tutorial-card"><div class="step-number">06</div><h3>Soporte y garantía</h3><p>Guarda tu código de pedido. Si necesitas ayuda, tendrás la referencia de tu compra para solicitar soporte según las condiciones aplicables.</p></div></div></div></div></div>
+<div class="tutorial-bg" id="favoritesModalBg" onclick="favoritesOutside(event)">
+<div class="tutorial-modal">
+<div class="quick-modal-head tutorial-modal-head">
+<h2>❤️ Mis favoritos</h2>
+<button class="close" onclick="closeFavorites()">×</button>
+</div>
+<div class="quick-modal-body">
+<p class="quick-modal-intro">Aquí puedes ver rápidamente las plataformas que guardaste con ♡.</p>
+<div class="quick-modal-grid" id="favoritesModalGrid"></div>
+</div>
+</div>
+</div>
+<div class="tutorial-bg" id="ordersModalBg" onclick="ordersOutside(event)">
+<div class="tutorial-modal">
+<div class="quick-modal-head tutorial-modal-head">
+<h2>📋 Mis pedidos</h2>
+<button class="close" onclick="closeOrders()">×</button>
+</div>
+<div class="quick-modal-body">
+<p class="quick-modal-intro">Tus pedidos realizados desde este navegador aparecen aquí para que puedas consultarlos rápidamente.</p>
+<div class="quick-orders" id="ordersModalContainer"></div>
+<div class="quick-orders" id="customerSalesContainer" style="margin-top:12px"></div>
+</div>
+</div>
+</div>
+<div class="payment-modal-bg" id="paymentModalBg" onclick="paymentOutside(event)"><div class="payment-modal"><div class="payment-modal-head"><h2>💜 Pago con Yape</h2><button class="close" onclick="closePaymentModal()">×</button></div><div class="payment-modal-body"><img alt="QR de Yape" class="yape-large-image" onerror="this.style.display='none';document.getElementById('qrFallback').style.display='grid'" src="images/yape.jpg"/><div id="qrFallback" style="display:none;width:250px;height:250px;margin:0 auto 16px;border-radius:16px;background:#211b31;border:1px dashed #7655dc;place-items:center;color:#a78bfa;font-weight:850;font-size:13px;text-align:center">Coloca aquí<br/>images/yape.jpg</div><p>Realiza el pago mediante Yape y luego continúa con tu pedido.</p><div class="yape-large-number" id="yapeLargeNumber">985 566 081</div><button class="copy-btn" onclick="copyYape()">📋 Copiar número</button><p style="font-size:11px">Conserva tu comprobante hasta completar la atención del pedido.</p></div></div></div>
+<div class="payment-modal-bg" id="plinPaymentModalBg" onclick="plinPaymentOutside(event)"><div class="payment-modal"><div class="payment-modal-head"><h2>💚 Pago con Plin</h2><button class="close" onclick="closePlinModal()">×</button></div><div class="payment-modal-body"><img alt="QR de Plin" class="yape-large-image" onerror="this.style.display='none';document.getElementById('plinQrFallback').style.display='grid'" src="images/plin.jpg"/><div id="plinQrFallback" style="display:none;width:250px;height:250px;margin:0 auto 16px;border-radius:16px;background:#10201c;border:1px dashed #22c55e;place-items:center;color:#86efac;font-weight:850;font-size:13px;text-align:center">Coloca aquí<br/>images/plin.jpg</div><p>Realiza el pago mediante Plin y luego continúa con tu pedido.</p><div class="yape-large-number" id="plinLargeNumber" style="color:#86efac">922 535 293</div><button class="copy-btn" onclick="copyPlin()" style="border-color:#245c4d;color:#bbf7d0">📋 Copiar número</button><p style="font-size:11px">Conserva tu comprobante hasta completar la atención del pedido.</p></div></div></div>
+<div class="email-confirm-bg" id="emailCodeBg" onclick="emailCodeOutside(event)">
+<div class="email-confirm-modal">
+<div class="email-confirm-icon">🔐</div>
+<h2>Verifica tu correo</h2>
+<p class="email-confirm-main">Enviamos un código único de 6 dígitos a:</p>
+<div class="email-confirm-address" id="codeEmailAddress">tu@email.com</div>
+<p class="otp-code-note">Escribe el código que recibiste para activar tu cuenta. El código dura 10 minutos.</p>
+<input aria-label="Código de 6 dígitos" autocomplete="one-time-code" class="otp-input" id="emailCodeInput" inputmode="numeric" maxlength="6" placeholder="000000"/>
+<div class="otp-timer" id="otpTimer">Código válido durante 10:00</div>
+<div class="auth-message" id="otpMessage" style="text-align:left;margin-top:12px"></div><button class="email-confirm-btn" onclick="verifyEmailCode()" style="margin-top:15px">Verificar código</button>
+<button class="otp-resend" id="resendCodeBtn" onclick="resendEmailCode()">Reenviar código</button>
+<button class="otp-resend" onclick="closeEmailCode()" style="margin-top:7px">Cancelar</button>
+</div>
+</div>
+<div class="email-confirm-bg" id="accountSuccessBg" onclick="accountSuccessOutside(event)">
+<div class="email-confirm-modal">
+<div class="email-confirm-icon">🎉</div>
+<h2>¡Cuenta creada correctamente!</h2>
+<p class="email-confirm-main">¡Bienvenido a <strong>NexoPlay</strong>! Tu cuenta ya está lista y puedes comenzar a usar tu perfil.</p>
+<p class="email-confirm-note">Desde tu perfil podrás consultar tus pedidos y, cuando activemos Wallet, administrar tu saldo y beneficios.</p>
+<button class="email-confirm-btn" onclick="closeAccountSuccess()">Entrar a mi perfil</button>
+</div>
+</div>
+<!-- ===== MIS COMPRAS ===== -->
+<div class="tutorial-bg" id="purchasesModalBg" onclick="purchasesOutside(event)"><div class="purchase-page tutorial-modal" onclick="event.stopPropagation()"><div class="tutorial-modal-head purchase-hero"><h2>🛍️ Mis Compras</h2><button class="close" onclick="closePurchases()">×</button></div><div class="purchase-grid" id="purchasesContainer"></div></div></div>
+<!-- ===== SOPORTE ===== -->
+<div class="tutorial-bg" id="supportModalBg" onclick="supportOutside(event)"><div class="support-modal tutorial-modal" onclick="event.stopPropagation()"><div class="tutorial-modal-head"><div><h2>🆘 Centro de soporte</h2><p style="margin:4px 0 0;color:#858b99;font-size:9px">Atención privada para problemas relacionados con tus cuentas.</p></div><button class="close" onclick="closeSupport()">×</button></div><div class="support-shell"><aside class="support-sidebar"><button class="admin-btn primary" onclick="startSupportTicket()" style="width:100%;margin-bottom:12px">＋ Nueva solicitud</button><div class="support-ticket-list" id="supportTicketList"></div></aside><main class="support-content" id="supportContent"><div class="support-empty"><div><div style="font-size:32px">🛟</div><h3 style="margin:8px 0;color:#fff">¿Necesitas ayuda?</h3><p style="max-width:380px">Crea una solicitud y podrás conversar de forma privada con el administrador.</p></div></div></main></div></div></div>
+<!-- ===== RECUPERACIÓN ===== -->
+<div class="tutorial-bg" id="recoveryModalBg" onclick="recoveryOutside(event)"><div class="auth-modal tutorial-modal" onclick="event.stopPropagation()"><div class="tutorial-modal-head"><h2>🔐 Restablecer contraseña</h2><button class="close" onclick="closeRecovery()">×</button></div><div class="quick-modal-body"><div id="recoveryStep1"><label class="auth-label">Correo de tu cuenta</label><input class="auth-input" id="recoveryEmail" placeholder="tu@email.com" type="email"/><button class="auth-submit" onclick="sendRecoveryCode()" style="width:100%;margin-top:10px">Enviar código</button></div><div id="recoveryStep2" style="display:none"><p style="color:#9ca1ae;font-size:11px;line-height:1.5">Te enviamos un código de recuperación a tu correo.</p><label class="auth-label">Código</label><input class="auth-input pin-input" id="recoveryCode" inputmode="numeric" maxlength="6" placeholder="••••••"/><button class="auth-submit" onclick="verifyRecoveryCode()" style="width:100%;margin-top:10px">Verificar código</button></div><div id="recoveryStep3" style="display:none"><label class="auth-label">Nueva contraseña</label><input class="auth-input" id="recoveryPassword" placeholder="Nueva contraseña" type="password"/><label class="auth-label" style="display:block;margin-top:9px">Repetir contraseña</label><input class="auth-input" id="recoveryPassword2" placeholder="Repite la contraseña" type="password"/><button class="auth-submit" onclick="finishRecoveryPassword()" style="width:100%;margin-top:10px">Cambiar contraseña</button></div><div class="auth-message" id="recoveryMessage"></div></div></div></div>
+<div class="auth-bg" id="authBg" onclick="authOutside(event)">
+<div class="auth-modal">
+<div class="auth-head"><h2 id="authTitle">👤 Perfil</h2><button class="close" onclick="closeAuth()">×</button></div>
+<div class="auth-body">
+<div class="auth-tabs" id="authTabs"><button class="auth-tab active" id="loginTab" onclick="setAuthMode('login')">Iniciar sesión</button><button class="auth-tab" id="registerTab" onclick="setAuthMode('register')">Crear cuenta</button></div>
+<div class="auth-form" id="loginForm">
+<label class="auth-label" for="loginEmail">Correo electrónico</label><input autocomplete="email" class="auth-input" id="loginEmail" placeholder="tu@email.com" type="email"/>
+<label class="auth-label" for="loginPassword">Contraseña</label><div class="auth-password-wrap"><input autocomplete="current-password" class="auth-input" id="loginPassword" placeholder="Tu contraseña" type="password"/><button class="password-toggle" onclick="togglePassword('loginPassword',this)" type="button">Mostrar</button></div>
+<button class="auth-submit" onclick="loginUser()">Iniciar sesión</button>
+<div class="recovery-box">
+<div class="recovery-title">¿Problemas para entrar?</div>
+<p>Escribe tu correo arriba y elige qué necesitas recuperar.</p>
+<div class="recovery-actions">
+<button class="recovery-btn" onclick="contactRecovery('usuario')" type="button">Olvidé mi usuario</button>
+<button class="recovery-btn" onclick="contactRecovery('contraseña')" type="button">Olvidé mi contraseña</button>
+</div>
+</div>
+</div>
+<div class="auth-form" id="registerForm" style="display:none">
+<label class="auth-label" for="registerUsername">Nombre de usuario</label><input autocomplete="username" class="auth-input" id="registerUsername" maxlength="30" placeholder="Ej. nexo_user" type="text"/>
+<label class="auth-label" for="registerEmail">Correo electrónico</label><input autocomplete="email" class="auth-input" id="registerEmail" placeholder="tu@email.com" type="email"/>
+<label class="auth-label" for="registerPhone">Número de teléfono</label><input autocomplete="tel" class="auth-input" id="registerPhone" maxlength="20" placeholder="9XXXXXXXX" type="tel"/>
+<label class="auth-label" for="registerPassword">Contraseña</label><div class="auth-password-wrap"><input autocomplete="new-password" class="auth-input" id="registerPassword" placeholder="Mínimo 6 caracteres" type="password"/><button class="password-toggle" onclick="togglePassword('registerPassword',this)" type="button">Mostrar</button></div>
+<label class="auth-label" for="registerPassword2">Confirmar contraseña</label><div class="auth-password-wrap"><input autocomplete="new-password" class="auth-input" id="registerPassword2" placeholder="Repite tu contraseña" type="password"/><button class="password-toggle" onclick="togglePassword('registerPassword2',this)" type="button">Mostrar</button></div><div class="register-pin-card"><div class="pin-title">🔐 Crea tu PIN de compra</div><div class="pin-sub">Usa 4 dígitos. Lo utilizaremos para confirmar compras y proteger tu cuenta.</div><input autocomplete="off" class="auth-input pin-input" id="registerPurchasePin" inputmode="numeric" maxlength="4" oninput="this.value=this.value.replace(/\D/g,'').slice(0,4)" placeholder="••••"/><div class="security-hint">🛡️ No uses un PIN demasiado fácil de adivinar.</div></div>
+<button class="auth-submit" onclick="registerUser()">Crear cuenta</button>
+</div>
+<div id="profileView" style="display:none">
+<div class="profile-card">
+<div class="profile-hero">
+<div class="profile-avatar"><img id="profileAvatarImage" src="images/profile-avatar.svg" alt="Foto de perfil" decoding="async" fetchpriority="high"/></div>
+<div><strong id="profileUsername">@usuario</strong><span id="profileEmailSmall">Correo: —</span><div class="profile-status" id="profileVerified">● Cuenta activa</div></div>
+</div>
+<div class="profile-stats">
+<div class="profile-stat"><div class="label">Cuentas compradas</div><div class="value" id="profilePurchases">0</div><div class="sub">Productos registrados</div></div>
+<div class="profile-stat"><div class="label">Saldo disponible</div><div class="value" id="profileBalance">S/ 0.00</div><div class="sub">Wallet</div></div>
+<div class="profile-stat"><div class="label">Total invertido</div><div class="value" id="profileSpent">S/ 0.00</div><div class="sub">Pedidos guardados</div></div>
+<div class="profile-stat"><div class="label">Pedidos</div><div class="value" id="profileOrdersCount">0</div><div class="sub">Historial en este dispositivo</div></div>
+</div>
+<div class="profile-info" id="profileDetails">📧 Correo: —<br/>📱 Teléfono: —<br/>📅 Miembro desde: —</div>
+<div class="profile-actions"><button class="secondary" onclick="openWallet()">👛 Abrir Wallet</button><button class="secondary" onclick="openSupport()">🆘 Soporte</button><button class="profile-logout" onclick="logoutUser()">Cerrar sesión</button></div>
+</div>
+</div>
+<div class="auth-message" id="authMessage"></div>
+<p class="auth-note">Tu contraseña la gestiona Supabase Authentication. Tu PIN de compra es independiente y se utiliza para confirmar operaciones sensibles.</p>
+</div>
+</div>
+</div>
+<aside class="cart-panel" id="cartPanel"><div class="cart-head cart-head-v2"><div><div class="eyebrow">RESUMEN DE COMPRA</div><h2>Tu carrito</h2></div><button aria-label="Cerrar carrito" class="close" onclick="toggleCart()">×</button></div><div class="cart-items cart-items-v2" id="cartItems"></div><div class="cart-feedback" id="cartFeedback" aria-live="polite"></div><div class="cart-extra"><div class="cart-extra-head"><h3>📋 Datos extra</h3><span>Opcional</span></div><p>Si el producto necesita datos para la entrega, agrégalos aquí. Si no los necesita, puedes dejar estos campos vacíos.</p><div class="cart-extra-form"><label><span>Nombre de perfil</span><input autocomplete="off" id="cartProfileName" maxlength="80" placeholder="Ej. Juan" type="text"/></label><label><span>ID / USUARIO</span><input autocomplete="off" id="cartProfileId" maxlength="80" placeholder="Ej. usuario123" type="text"/></label><label><span>Datos extra</span><textarea id="cartExtraData" maxlength="300" placeholder="PIN, indicación o dato necesario" rows="2"></textarea></label></div></div><div class="distributor-checkout-box" id="distributorCheckoutBox" style="display:none"></div><div class="cart-total cart-total-v2"><span>Total</span><strong id="cartTotal">S/ 0.00</strong></div><div class="payment-box payment-box-v2"><h3>💳 Método de pago</h3><p>Selecciona cómo quieres completar esta compra.</p><div class="payment-methods"><label class="payment-option selected" id="payYapeOption"><input checked="checked" name="checkoutMethod" onchange="selectCheckoutMethod('yape')" type="radio" value="yape"/><strong>💜 Yape</strong><small>Pago externo + comprobante por WhatsApp</small></label><label class="payment-option" id="payPlinOption"><input name="checkoutMethod" onchange="selectCheckoutMethod('plin')" type="radio" value="plin"/><strong>💚 Plin</strong><small>Pago externo + comprobante por WhatsApp</small></label><label class="payment-option" id="payWalletOption"><input name="checkoutMethod" onchange="selectCheckoutMethod('wallet')" type="radio" value="wallet"/><strong>👛 Wallet</strong><small id="walletCheckoutHint">Paga con tu saldo</small></label></div><div id="yapePaymentCard" style="display:block"><div class="yape-card payment-card-v2" onclick="openPaymentModal()" role="button" tabindex="0"><img alt="Yape" decoding="async" loading="eager" src="images/yape.jpg"/><div><strong>Yape</strong><span class="payment-number">Número: <span id="yapeNumber">985 566 081</span></span><small>Toca para ver QR y número.</small></div></div></div><div id="plinPaymentCard" style="display:none"><div class="plin-card payment-card-v2" onclick="openPlinModal()" role="button" tabindex="0"><img alt="Plin" decoding="async" loading="eager" src="images/plin.jpg"/><div><strong>Plin</strong><span class="payment-number">Número: <span id="plinNumber">922 535 292</span></span><small>Toca para ver QR y número.</small></div></div></div><div class="wallet-choice" id="walletCheckoutBox" style="display:none">👛 <strong>Pago con Wallet</strong><br/><span id="walletCheckoutBalance">Inicia sesión para consultar tu saldo.</span></div></div><div class="receipt-box receipt-box-v2"><h4>🧾 Comprobante</h4><p>Para Yape/Plin puedes adjuntar tu comprobante antes de abrir WhatsApp.</p><input accept="image/*" id="receiptInput" onchange="previewReceipt(event)" type="file"/><img alt="Vista previa del comprobante" class="receipt-preview" id="receiptPreview"/></div><div class="order-note order-note-v2" id="orderNote">Revisa productos, datos extra y método de pago antes de continuar.</div><button class="primary checkout checkout-v2" id="checkoutBtn" onclick="checkout()">Continuar con mi pedido</button></aside>
+<div class="mobile-bottom"><button onclick="openNexoAI()" type="button">🤖 Nexo</button><button onclick="document.getElementById('catalogo').scrollIntoView()">🛍️ Catálogo</button><button onclick="openFavorites()">❤️ Favoritos</button><button onclick="toggleCart()">🛒 Carrito <span id="mobileCartCount">0</span></button></div><div class="toast" id="toast"></div>
+
+
+<div class="admin-panel" id="adminPanelBg">
+<div class="admin-modal">
+<div class="admin-head">
+<div class="admin-topbar"><div><div class="eyebrow">NEXOPLAY CONTROL CENTER</div><h2 style="margin:2px 0 0;font-size:21px">⚙️ Centro de administración</h2><div class="admin-head-sub">Inventario, catálogo, ventas, Wallet y configuración en un solo lugar.</div></div><div class="admin-actions"><span class="admin-top-status"><i class="admin-dot"></i> Panel protegido</span><button class="admin-btn" onclick="refreshAdminWorkspace()" type="button">↻ Actualizar</button><button class="close" onclick="closeAdminPanel()">×</button></div></div>
+</div>
+<div class="admin-dashboard">
+<aside class="admin-sidebar">
+<div class="admin-brand"><strong>Nexo<span style="color:var(--cyan)">Play</span></strong><span>ADMINISTRACIÓN</span></div>
+<nav aria-label="Navegación administrativa" class="admin-nav">
+<button class="active" id="adminNavOverview" onclick="switchAdminTab('overview')">📊 Resumen</button>
+<button id="adminNavInventory" onclick="switchAdminTab('inventory')">📦 Inventario <span class="sales-badge" id="adminInventoryBadge">0</span></button>
+<button id="adminNavWallet" onclick="switchAdminTab('wallet')">👛 Wallet</button>
+<button id="adminNavPending" onclick="switchAdminTab('pending')">⏳ Ventas pendientes <span class="sales-badge" id="adminPendingBadge">0</span></button>
+<button id="adminNavDelivered" onclick="switchAdminTab('delivered')">✅ Entregadas</button>
+<div class="nav-sep"></div>
+<button id="adminNavTemplates" onclick="switchAdminTab('templates')">🧩 Productos y planes</button>
+<button id="adminNavCategories" onclick="switchAdminTab('categories')">🏷️ Categorías</button>
+<button id="adminNavCatalog" onclick="switchAdminTab('catalog')">🛍️ Catálogo</button><button id="adminNavRanks" onclick="switchAdminTab('ranks')">🏆 Rangos <span class="sales-badge" id="adminRanksBadge">0</span></button><button id="adminNavSupport" onclick="switchAdminTab('support')">🆘 Soporte <span class="sales-badge" id="adminSupportBadge">0</span></button>
+</nav>
+</aside>
+<main class="admin-main">
+<section class="admin-view active" id="adminOverviewSection"></section>
+<section class="admin-view" id="adminInventorySection"><div id="adminInventory"></div></section>
+<section class="admin-view" id="adminWalletView"><div id="adminWalletSection"><div class="admin-note">Aquí aparecen todos los usuarios registrados. Solo tú, como administrador, puedes modificar el saldo. Cada cambio queda registrado en el historial de Wallet.</div><div id="adminClients"></div></div></section>
+<section class="admin-view" id="adminSalesView"><div id="adminSalesSection"><div class="sales-kpis"><div class="sales-kpi"><div class="label">Pendientes</div><div class="value" id="adminPendingCount">0</div></div><div class="sales-kpi"><div class="label">Entregadas</div><div class="value" id="adminDeliveredCount">0</div></div><div class="sales-kpi"><div class="label">Estado</div><div class="value" id="adminSalesStatus" style="font-size:13px">Listo</div></div></div><input class="sales-search" id="adminSalesSearch" oninput="renderAdminSales()" placeholder="Buscar por pedido, cliente, correo o producto…"/><div class="sales-list" id="adminSalesList"></div></div></section>
+<section class="admin-view" id="adminTemplatesView"><div id="adminTemplates"></div></section>
+<section class="admin-view" id="adminCategoriesSection"><div id="adminCategories"></div></section>
+<section class="admin-view" id="adminCatalogSection"></section><section class="admin-view" id="adminRanksSection"><div id="adminRanksRoot"></div></section><section class="admin-view" id="adminSupportSection"><div id="adminSupportRoot"></div></section>
+</main>
+</div>
+</div>
+</div>
+<div class="tutorial-bg" id="adminSaleDetailsBg" onclick="adminSaleDetailsOutside(event)">
+<div class="tutorial-modal admin-sale-details-modal">
+<div class="tutorial-modal-head"><h2>🔎 Detalles completos de la venta</h2><button class="close" onclick="closeAdminSaleDetails()">×</button></div>
+<div class="quick-modal-body"><div id="adminSaleDetailsContent"></div></div>
+</div>
+</div>
+<div class="tutorial-bg" id="walletModalBg" onclick="walletOutside(event)">
+<div class="wallet-modal">
+<div class="wallet-head"><div><div class="eyebrow">NEXOPLAY WALLET</div><h2>👛 Mi Wallet</h2></div><button class="close" onclick="closeWallet()">×</button></div>
+<div class="wallet-body">
+<div class="wallet-help" id="walletLoginNotice" style="display:none;margin:0 0 14px">🔐 Inicia sesión para consultar tu saldo y usar Wallet.</div>
+<div class="wallet-hero">
+<div class="wallet-balance"><div class="wallet-kicker">SALDO DISPONIBLE</div><div class="wallet-amount" id="walletBalance">S/ 0.00</div><div class="wallet-updated" id="walletUpdated">Actualizando…</div></div>
+<div class="wallet-quick"><button class="wallet-action primary" onclick="focusWalletTopup()">➕ Recargar saldo</button><button class="wallet-action" onclick="walletWhatsApp()">💬 Consultar por WhatsApp</button><button class="wallet-action" onclick="loadWalletData()">↻ Actualizar saldo</button></div>
+</div>
+<div class="wallet-stats"><div class="wallet-stat"><div class="label">Total recargado</div><div class="value" id="walletTopups">S/ 0.00</div><div class="sub">Pagos acreditados</div></div><div class="wallet-stat"><div class="label">Total usado</div><div class="value" id="walletSpent">S/ 0.00</div><div class="sub">Consumos registrados</div></div><div class="wallet-stat"><div class="label">Movimientos</div><div class="value" id="walletMovements">0</div><div class="sub">Últimos registros</div></div></div>
+<div class="wallet-grid">
+<div class="wallet-panel" id="walletTopupPanel"><h3>💳 Solicitar una recarga</h3><p class="wallet-muted">Realiza el pago por Yape/Plin y envíanos el comprobante. El saldo se acredita manualmente después de verificar el pago.</p>
+<div class="wallet-topup-form"><div class="wallet-preset"><button onclick="setWalletAmount(10);updateTopupCoupon()">S/ 10</button><button onclick="setWalletAmount(20);updateTopupCoupon()">S/ 20</button><button onclick="setWalletAmount(50);updateTopupCoupon()">S/ 50</button><button onclick="setWalletAmount(100);updateTopupCoupon()">S/ 100</button></div><input class="wallet-input" id="walletTopupAmount" inputmode="decimal" max="1000" min="1" oninput="updateTopupCoupon()" placeholder="Otro monto (S/)" step="0.01" type="number"/><select class="wallet-select" id="walletTopupMethod"><option value="Yape">Yape</option><option value="Plin">Plin</option></select><button class="primary" onclick="requestWalletTopup()">📲 Solicitar recarga</button></div>
+<div class="wallet-help">💡 <strong>Importante:</strong> al pulsar solicitar no se crea ninguna solicitud en la base de datos. Se abrirá WhatsApp con tus datos para que envíes el comprobante. Tú acreditas el saldo manualmente desde el panel administrador.</div>
+</div>
+<div class="wallet-panel"><h3>🏆 Beneficios NexoPlay</h3><p class="wallet-muted">Tu actividad puede desbloquear beneficios y recompensas. Estos beneficios los administra NexoPlay.</p>
+<div class="wallet-level"><div class="wallet-level-row"><strong id="walletLevelName">Nivel Inicial</strong><span id="walletPoints">0 pts</span></div><div class="wallet-progress"><span id="walletProgressBar"></span></div><div class="wallet-muted" id="walletProgressText" style="margin-top:5px">Empieza acumulando actividad en tu cuenta.</div></div>
+<div class="wallet-benefits"><div class="wallet-benefit"><strong>🎁 Promociones</strong>Podrás recibir beneficios especiales según campañas de NexoPlay.</div><div class="wallet-benefit"><strong>⚡ Atención prioritaria</strong>Tu historial de actividad ayuda a identificar clientes frecuentes.</div><div class="wallet-benefit"><strong>🔥 Recompensas</strong>Consulta periódicamente tu perfil para ver nuevas recompensas.</div></div>
+</div>
+</div>
+<div class="wallet-panel wallet-history"><h3>📜 Historial de Wallet</h3><p class="wallet-muted">Aquí aparecen recargas acreditadas, consumos y ajustes registrados.</p><div id="walletTransactions"></div></div>
+<div class="wallet-help" style="margin-top:14px">🔒 <strong>Seguridad:</strong> tu saldo real se gestiona en Supabase. El navegador no puede modificarlo por sí solo. Las recargas quedan pendientes hasta que sean verificadas.</div>
+</div>
+</div>
+</div>
+<div class="tutorial-bg" id="deliveryModalBg" onclick="deliveryOutside(event)">
+<div class="tutorial-modal" style="width:min(560px,100%)">
+<div class="tutorial-modal-head"><h2>🔐 Datos de mi cuenta</h2><button class="close" onclick="closeDeliveryModal()">×</button></div>
+<div class="quick-modal-body"><div id="deliveryModalContent"></div></div>
+</div>
+</div>
+
+<div class="np-ranks-bg" id="nexoRanksBg" onclick="nexoRanksOutside(event)">
+<div class="np-ranks-page" onclick="event.stopPropagation()">
+<div class="np-ranks-head"><div class="np-ranks-brand"><div class="eyebrow">NEXOPLAY MEMBERSHIP</div><h2>🏆 Rangos</h2><p>Tu nivel, tus beneficios y tu progreso en un solo lugar.</p></div><button class="np-ranks-close" onclick="closeRanks()">×</button></div>
+<div class="np-ranks-content"><div id="npRanksHero"></div><div class="np-rank-section-head"><div><h3>Elige cómo quieres avanzar</h3><p>Los rangos de pago usan tu saldo Wallet.</p></div></div><div class="np-rank-grid" id="npRanksGrid"></div></div>
+</div>
+</div>
+
+
+<div class="distributor-modal-bg" id="distributorPanelBg" onclick="distributorOutside(event)">
+<div class="distributor-modal" onclick="event.stopPropagation()">
+<div class="distributor-topbar"><div class="distributor-brand"><div class="eyebrow">NEXOPLAY BUSINESS</div><h2>📈 Panel de Ventas</h2><p>Herramientas exclusivas para distribuidores.</p></div><button class="distributor-close" onclick="closeDistributorPanel()">×</button></div>
+<div class="distributor-content" id="distributorPanelContent"></div>
+</div>
+</div>
+<div class="distributor-success-bg" id="distributorSuccessBg" onclick="distributorSuccessOutside(event)"><div class="distributor-success" onclick="event.stopPropagation()"><div class="distributor-success-icon">🎉</div><h3>¡Compra realizada!</h3><p id="distributorSuccessText">Tu compra fue registrada correctamente.</p><button onclick="closeDistributorSuccess();openDistributorPanel()">📈 Ir a Panel de ventas</button></div></div>
+
+
+<!-- ===== NEXOPLAY VIP / REFERIDOS / DESCUENTOS CONFIGURABLES V1 ===== -->
+
+<div class="nx-vip-bg" id="nexoVipBg" onclick="nexoVipOutside(event)">
+<div class="nx-vip-modal" onclick="event.stopPropagation()">
+<div class="nx-vip-head"><div><div class="eyebrow">NEXOPLAY VIP BUSINESS</div><h2>👑 Centro VIP</h2><p>Herramientas premium, referidos y gestión de clientes.</p></div><button class="close" onclick="closeNexoVip()">×</button></div>
+<div class="nx-vip-body" id="nexoVipBody"></div>
+</div>
+</div>
+<div class="nx-vip-bg" id="nexoReferralBg" onclick="nexoReferralOutside(event)">
+<div class="nx-vip-modal" onclick="event.stopPropagation()" style="width:min(520px,100%)">
+<div class="nx-vip-head"><div><div class="eyebrow">DISTRIBUIDOR</div><h2>🔗 Código de referido</h2><p>Obtén Distribuidor usando un código válido.</p></div><button class="close" onclick="closeNexoReferral()">×</button></div>
+<div class="nx-vip-body"><input class="nx-referral-input" id="nexoReferralInput" maxlength="32" placeholder="Ej. VIP-AB12CD"/><div class="nx-vip-muted" style="margin:8px 0 12px">El código se utiliza una sola vez. Después de canjearlo, el sistema lo marca como consumido.</div><button class="nx-ref-btn primary" onclick="redeemNexoReferral()" style="width:100%">🚀 Canjear código</button></div>
+</div>
+</div>
+
+
+<div id="nexoMascot" class="nexo-mascot" role="button" tabindex="0" aria-label="Abrir Nexo Inteligente" onclick="openNexoAI()" onkeydown="if(event.key==='Enter'||event.key===' ')openNexoAI()">
+  <div class="nexo-mascot-glow"></div><div class="nexo-mascot-face"><span class="nexo-eye">•</span><span class="nexo-eye">•</span><span class="nexo-mouth">◡</span></div>
+  <div class="nexo-mascot-name">Nexo</div><div class="nexo-mascot-tip">Pregúntame sobre plataformas, estrenos y partidos</div>
+</div>
+</body>
+</html>

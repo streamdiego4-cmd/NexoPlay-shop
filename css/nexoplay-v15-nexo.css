@@ -1,0 +1,9 @@
+/* V15 — subtle Nexo polish and notification states */
+.nx-v13-mascot .nx-v13-head{position:relative;overflow:visible}
+.nx-v13-mascot .nx-v13-head:after{box-shadow:0 0 0 4px rgba(36,184,255,.08)}
+.nx-v13-label{letter-spacing:.1px}
+.nx-v13-permission strong{color:#1e4c7a}
+.nx-v13-notify-panel{backdrop-filter:blur(16px)}
+.nx-v13-notify-item{transition:transform .18s ease,box-shadow .18s ease,background .18s ease}
+.nx-v13-notify-item:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(36,74,120,.08)}
+@media(max-width:700px){.nx-v13-notify-panel{right:10px;top:72px;width:calc(100vw - 20px)}}
