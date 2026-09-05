@@ -1,0 +1,82 @@
+/* NexoPlay V12 — ajuste final de perfil + confianza de servicio. */
+
+/* Hero trust: beneficios comerciales reales, no explicación técnica del sitio. */
+.hero-trust{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  justify-content:center!important;
+  gap:10px!important;
+  margin:22px auto 4px!important;
+  max-width:920px!important;
+}
+.hero-trust span{
+  position:relative!important;
+  padding:9px 13px!important;
+  border-radius:999px!important;
+  background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(243,248,255,.96))!important;
+  border:1px solid rgba(87,104,145,.16)!important;
+  color:#29415f!important;
+  font-size:10px!important;
+  font-weight:900!important;
+  letter-spacing:.15px!important;
+  box-shadow:0 8px 22px rgba(34,61,98,.06)!important;
+}
+.hero-trust span:nth-child(1){border-color:rgba(113,92,255,.22)!important;background:linear-gradient(135deg,#f5f1ff,#ffffff)!important}
+.hero-trust span:nth-child(2){border-color:rgba(31,198,232,.22)!important;background:linear-gradient(135deg,#f0fbff,#ffffff)!important}
+.hero-trust span:nth-child(3){border-color:rgba(44,170,117,.18)!important;background:linear-gradient(135deg,#f1fbf6,#ffffff)!important}
+.hero-trust span:nth-child(4){border-color:rgba(235,173,72,.20)!important;background:linear-gradient(135deg,#fffaf0,#ffffff)!important}
+
+/* Perfil de escritorio: el contenido se adapta al alto real de la ventana.
+   El pie de acciones queda siempre visible para no depender de F11. */
+#authBg[data-nx7-mode="profile"] .auth-modal{
+  width:min(980px,94vw)!important;
+  max-width:980px!important;
+  max-height:92vh!important;
+  overflow:hidden!important;
+}
+#authBg[data-nx7-mode="profile"] .auth-body{
+  padding:14px 18px 14px!important;
+  min-height:0!important;
+}
+#authBg[data-nx7-mode="profile"] #profileView{
+  max-height:calc(92vh - 78px)!important;
+  overflow:auto!important;
+  padding-bottom:8px!important;
+  scrollbar-width:thin;
+}
+#authBg[data-nx7-mode="profile"] .nx5-profile-hero{
+  padding:16px 18px!important;
+  min-height:116px!important;
+}
+#authBg[data-nx7-mode="profile"] .nx5-profile-orb{
+  width:62px!important;
+  height:62px!important;
+  border-radius:19px!important;
+  font-size:29px!important;
+}
+#authBg[data-nx7-mode="profile"] .nx5-profile-main h3{font-size:23px!important}
+#authBg[data-nx7-mode="profile"] .nx5-profile-grid{gap:8px!important;margin-top:9px!important}
+#authBg[data-nx7-mode="profile"] .nx5-stat{padding:12px!important;border-radius:15px!important}
+#authBg[data-nx7-mode="profile"] .nx5-stat b{font-size:18px!important;margin:4px 0!important}
+#authBg[data-nx7-mode="profile"] .nx5-profile-actions{gap:6px!important;margin-top:8px!important}
+#authBg[data-nx7-mode="profile"] .nx5-action{padding:8px 10px!important;font-size:10px!important}
+#authBg[data-nx7-mode="profile"] .nx5-profile-panels{gap:8px!important;margin-top:8px!important}
+#authBg[data-nx7-mode="profile"] .nx5-info-card{padding:14px!important;border-radius:15px!important}
+#authBg[data-nx7-mode="profile"] .nx5-account-line{margin-top:8px!important;padding:10px 12px!important}
+#authBg[data-nx7-mode="profile"] .nx5-profile-footer{
+  position:sticky!important;
+  bottom:0!important;
+  z-index:20!important;
+  margin-top:8px!important;
+  padding:8px 0 4px!important;
+  background:linear-gradient(180deg,rgba(255,255,255,0),#f4f8fd 26%)!important;
+}
+
+@media(max-width:720px){
+  #authBg[data-nx7-mode="profile"] .auth-modal{width:min(96vw,640px)!important;max-height:92vh!important}
+  #authBg[data-nx7-mode="profile"] .auth-body{padding:10px!important}
+  #authBg[data-nx7-mode="profile"] #profileView{max-height:calc(92vh - 70px)!important;overflow:auto!important}
+  #authBg[data-nx7-mode="profile"] .nx5-profile-hero{padding:14px!important}
+  #authBg[data-nx7-mode="profile"] .nx5-profile-grid{grid-template-columns:repeat(2,1fr)!important}
+  #authBg[data-nx7-mode="profile"] .nx5-profile-panels{grid-template-columns:1fr!important}
+}

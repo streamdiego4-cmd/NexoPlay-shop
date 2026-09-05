@@ -1,0 +1,251 @@
+/* NexoPlay V18 — responsive layout polish
+   Focus: mobile profile/menu spacing + true centered desktop layout. */
+
+/* ---------- Global centering / desktop ---------- */
+html,body{width:100%;max-width:100%;min-width:0}
+.nav{position:sticky;top:0;width:100%;min-width:0}
+.hero,.section{width:100%;max-width:1250px;margin-inline:auto;min-width:0}
+.hero-shell,.section-title,.category-explorer,.catalog-tools,.grid,.mini-grid,.combo-hero{min-width:0}
+
+/* Keep the main navigation visually centered instead of letting the long link row
+   drift toward one side when the viewport is wide or in desktop-mode on mobile. */
+@media(min-width:801px){
+  .nav{position:sticky;isolation:isolate}
+  .nav-links{
+    position:absolute!important;
+    left:50%!important;
+    top:50%!important;
+    transform:translate(-50%,-50%)!important;
+    justify-content:center!important;
+    align-items:center!important;
+    max-width:calc(100% - 360px)!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    scrollbar-width:none!important;
+    white-space:nowrap!important;
+    padding:3px 8px!important;
+  }
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav>.menu-wrap{margin-left:auto!important}
+}
+
+/* At medium desktop widths, reduce density without changing the desktop design. */
+@media(min-width:801px) and (max-width:1120px){
+  .nav{padding-left:20px!important;padding-right:20px!important}
+  .nav-links{gap:13px!important;max-width:calc(100% - 300px)!important}
+  .nav-links a{font-size:11px!important}
+  .logo{font-size:22px!important}
+}
+
+/* ---------- Header / hamburger on phones ---------- */
+@media(max-width:800px){
+  .nav{height:68px!important;padding:0 14px!important;gap:8px!important}
+  .logo{font-size:22px!important;letter-spacing:-.8px!important;white-space:nowrap}
+  .logo small{font-size:7px!important;letter-spacing:1.6px!important;margin-left:5px!important}
+  .menu-wrap{margin-left:auto!important;margin-right:0!important;flex:0 0 auto}
+  .menu-btn{width:44px!important;height:44px!important;border-radius:13px!important}
+  .cart-btn{padding:10px 11px!important;border-radius:13px!important;white-space:nowrap}
+  .side-menu{
+    right:0!important;
+    top:calc(100% + 8px)!important;
+    width:min(300px,calc(100vw - 20px))!important;
+    max-width:calc(100vw - 20px)!important;
+    max-height:calc(100vh - 86px)!important;
+    overflow:auto!important;
+    border-radius:16px!important;
+  }
+  .side-menu button{padding:13px 12px!important;font-size:12px!important}
+}
+
+/* ---------- Profile modal: comfortable on every phone ---------- */
+#authBg[data-nx8-profile="1"] .auth-modal,
+#authBg[data-nx7-mode="profile"] .auth-modal{
+  width:min(980px,94vw)!important;
+  max-width:980px!important;
+  max-height:92vh!important;
+  height:auto!important;
+  overflow:hidden!important;
+}
+
+#authBg[data-nx8-profile="1"] .auth-body,
+#authBg[data-nx7-mode="profile"] .auth-body{
+  min-height:0!important;
+}
+
+#authBg[data-nx8-profile="1"] #profileView,
+#authBg[data-nx7-mode="profile"] #profileView{
+  min-width:0!important;
+  box-sizing:border-box!important;
+}
+
+/* Phone layout: the profile itself scrolls, while the logout row stays easy to find. */
+@media(max-width:720px){
+  #authBg[data-nx8-profile="1"],
+  #authBg[data-nx7-mode="profile"]{
+    padding:10px!important;
+    align-items:center!important;
+  }
+  #authBg[data-nx8-profile="1"] .auth-modal,
+  #authBg[data-nx7-mode="profile"] .auth-modal{
+    width:min(96vw,560px)!important;
+    max-width:560px!important;
+    height:min(92vh,760px)!important;
+    max-height:92vh!important;
+    display:flex!important;
+    flex-direction:column!important;
+    border-radius:22px!important;
+  }
+  #authBg[data-nx8-profile="1"] .auth-head,
+  #authBg[data-nx7-mode="profile"] .auth-head{
+    flex:0 0 auto!important;
+    padding:14px 16px!important;
+  }
+  #authBg[data-nx8-profile="1"] .auth-head h2,
+  #authBg[data-nx7-mode="profile"] .auth-head h2{font-size:19px!important}
+  #authBg[data-nx8-profile="1"] .auth-body,
+  #authBg[data-nx7-mode="profile"] .auth-body{
+    flex:1 1 auto!important;
+    min-height:0!important;
+    overflow:hidden!important;
+    padding:10px!important;
+  }
+  #authBg[data-nx8-profile="1"] #profileView,
+  #authBg[data-nx7-mode="profile"] #profileView{
+    height:100%!important;
+    max-height:none!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    padding:0 1px 2px!important;
+    -webkit-overflow-scrolling:touch!important;
+    scrollbar-width:thin!important;
+  }
+
+  /* Header card: less horizontal pressure so username/status don't get cramped. */
+  #authBg[data-nx8-profile="1"] .nx5-profile-hero,
+  #authBg[data-nx7-mode="profile"] .nx5-profile-hero{
+    padding:13px!important;
+    gap:10px!important;
+    border-radius:18px!important;
+    min-height:0!important;
+  }
+  #authBg[data-nx8-profile="1"] .nx5-profile-orb,
+  #authBg[data-nx7-mode="profile"] .nx5-profile-orb{
+    width:54px!important;height:54px!important;
+    flex:0 0 54px!important;
+    border-radius:16px!important;
+    font-size:24px!important;
+  }
+  #authBg[data-nx8-profile="1"] .nx5-profile-main,
+  #authBg[data-nx7-mode="profile"] .nx5-profile-main{min-width:0!important;flex:1 1 auto!important}
+  #authBg[data-nx8-profile="1"] .nx5-profile-main h3,
+  #authBg[data-nx7-mode="profile"] .nx5-profile-main h3{
+    font-size:18px!important;
+    line-height:1.15!important;
+  }
+  #authBg[data-nx8-profile="1"] .nx5-profile-main p,
+  #authBg[data-nx7-mode="profile"] .nx5-profile-main p{
+    font-size:10px!important;
+    overflow-wrap:anywhere!important;
+  }
+  #authBg[data-nx8-profile="1"] .nx5-profile-pills,
+  #authBg[data-nx7-mode="profile"] .nx5-profile-pills{gap:5px!important;margin-top:7px!important}
+  #authBg[data-nx8-profile="1"] .nx5-profile-pills span,
+  #authBg[data-nx7-mode="profile"] .nx5-profile-pills span{
+    padding:5px 7px!important;font-size:8px!important;
+  }
+  #authBg[data-nx8-profile="1"] .nx5-profile-refresh,
+  #authBg[data-nx7-mode="profile"] .nx5-profile-refresh{
+    width:34px!important;height:34px!important;flex:0 0 34px!important;border-radius:10px!important;
+  }
+
+  /* Stats stay as a clean 2 × 2 block. */
+  #authBg[data-nx8-profile="1"] .nx5-profile-grid,
+  #authBg[data-nx7-mode="profile"] .nx5-profile-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:7px!important;margin-top:8px!important;
+  }
+  #authBg[data-nx8-profile="1"] .nx5-stat,
+  #authBg[data-nx7-mode="profile"] .nx5-stat{
+    padding:10px!important;border-radius:14px!important;
+  }
+  #authBg[data-nx8-profile="1"] .nx5-stat span,
+  #authBg[data-nx8-profile="1"] .nx5-stat small,
+  #authBg[data-nx7-mode="profile"] .nx5-stat span,
+  #authBg[data-nx7-mode="profile"] .nx5-stat small{font-size:9px!important}
+  #authBg[data-nx8-profile="1"] .nx5-stat b,
+  #authBg[data-nx7-mode="profile"] .nx5-stat b{font-size:16px!important;margin:3px 0!important}
+
+  /* Action buttons become a predictable grid instead of running off the edge. */
+  #authBg[data-nx8-profile="1"] .nx5-profile-actions,
+  #authBg[data-nx7-mode="profile"] .nx5-profile-actions{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:6px!important;margin-top:8px!important;
+  }
+  #authBg[data-nx8-profile="1"] .nx5-profile-actions .nx5-action,
+  #authBg[data-nx7-mode="profile"] .nx5-profile-actions .nx5-action{
+    width:100%!important;min-width:0!important;padding:9px 7px!important;
+    font-size:9px!important;white-space:normal!important;
+  }
+
+  #authBg[data-nx8-profile="1"] .nx5-profile-panels,
+  #authBg[data-nx7-mode="profile"] .nx5-profile-panels{
+    grid-template-columns:1fr!important;gap:7px!important;margin-top:8px!important;
+  }
+  #authBg[data-nx8-profile="1"] .nx5-info-card,
+  #authBg[data-nx7-mode="profile"] .nx5-info-card{
+    padding:11px!important;border-radius:14px!important;
+  }
+  #authBg[data-nx8-profile="1"] .nx5-account-line,
+  #authBg[data-nx7-mode="profile"] .nx5-account-line{
+    margin-top:7px!important;padding:9px!important;gap:7px!important;
+  }
+  #authBg[data-nx8-profile="1"] .nx5-account-line strong,
+  #authBg[data-nx7-mode="profile"] .nx5-account-line strong{font-size:9px!important}
+
+  /* Always visible action bar at the bottom of the profile scroll area. */
+  #authBg[data-nx8-profile="1"] .nx5-profile-footer,
+  #authBg[data-nx7-mode="profile"] .nx5-profile-footer{
+    position:sticky!important;
+    bottom:0!important;
+    z-index:30!important;
+    display:grid!important;
+    grid-template-columns:1fr 1fr 1.1fr!important;
+    gap:5px!important;
+    margin:7px 0 0!important;
+    padding:9px 0 4px!important;
+    background:linear-gradient(180deg,rgba(255,255,255,0),#f4f8fd 30%)!important;
+  }
+  #authBg[data-nx8-profile="1"] .nx5-profile-footer .nx5-action,
+  #authBg[data-nx7-mode="profile"] .nx5-profile-footer .nx5-action{
+    min-width:0!important;width:100%!important;padding:8px 5px!important;
+    font-size:9px!important;line-height:1.2!important;
+  }
+
+  /* These two legacy elements are hidden by the V5 renderer; keep them harmless. */
+  #authBg[data-nx8-profile="1"] .nx5-legacy-bridge,
+  #authBg[data-nx7-mode="profile"] .nx5-legacy-bridge{display:none!important}
+  #authBg[data-nx8-profile="1"] .auth-note,
+  #authBg[data-nx7-mode="profile"] .auth-note,
+  #authBg[data-nx8-profile="1"] #authMessage,
+  #authBg[data-nx7-mode="profile"] #authMessage{display:none!important}
+}
+
+@media(max-width:380px){
+  #authBg[data-nx8-profile="1"] .auth-body,
+  #authBg[data-nx7-mode="profile"] .auth-body{padding:8px!important}
+  #authBg[data-nx8-profile="1"] .nx5-profile-hero,
+  #authBg[data-nx7-mode="profile"] .nx5-profile-hero{padding:11px!important}
+  #authBg[data-nx8-profile="1"] .nx5-profile-orb,
+  #authBg[data-nx7-mode="profile"] .nx5-profile-orb{width:48px!important;height:48px!important;flex-basis:48px!important}
+  #authBg[data-nx8-profile="1"] .nx5-profile-main h3,
+  #authBg[data-nx7-mode="profile"] .nx5-profile-main h3{font-size:17px!important}
+  #authBg[data-nx8-profile="1"] .nx5-profile-footer .nx5-action,
+  #authBg[data-nx7-mode="profile"] .nx5-profile-footer .nx5-action{font-size:8px!important}
+}
+
+/* ---------- Main content stays centered in desktop mode ---------- */
+@media(min-width:721px){
+  .hero,.section{margin-left:auto!important;margin-right:auto!important}
+  .hero-shell{width:100%!important;margin-inline:auto!important}
+}

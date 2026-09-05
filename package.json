@@ -1,0 +1,13 @@
+{
+  "name": "nexoplay",
+  "version": "17.0.0",
+  "private": true,
+  "description": "NexoPlay - entretenimiento digital, catálogo, Wallet, soporte, Nexo IA y notificaciones.",
+  "scripts": {
+    "check": "node scripts/final-check.mjs",
+    "deploy": "powershell -ExecutionPolicy Bypass -File scripts/deploy-nexo.ps1",
+    "generate-vapid": "npx web-push generate-vapid-keys",
+    "setup-final": "powershell -ExecutionPolicy Bypass -File scripts/setup-final.ps1",
+    "supabase:login": "npx supabase@latest login"
+  }
+}
